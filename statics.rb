@@ -25,18 +25,16 @@ def print_sources(title, sources)
   puts
 end
 
-def parse_eslint
-  sources = group_by_source('eslint.xml')
-
-  print_sources('eslint', sources)
-end
-
-def parse_best_practices
-  sources = group_by_source('rails_best_practices_output.xml')
-
-  print_sources('rails best practices', sources)
-end
-
 # execute
-parse_eslint
-parse_best_practices
+checkstyles = {
+  'eslint' => 'eslint.xml',
+  'scsslint' => 'scsslint.xml',
+  'rails best practices' => 'rails_best_practices_output.xml',
+  'reek' => 'reek.xml',
+  'rubocop' => 'rubocop.xml'
+}
+
+checkstyles.each do |title, file_name|
+  sources = group_by_source(file_name)
+  print_sources(title, sources)
+end
